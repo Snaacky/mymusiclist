@@ -26,7 +26,12 @@ pip install -r requirements.txt
 app.config["SECRET_KEY"] = "PUT_YOUR_OWN_SECURE_KEY_HERE"
 ```
 
-4. Execute the entrypoint.
+4. Update the path you plan to download to and store your music at in `mymusiclist.py` 
+```
+app.config["SONGS_PATH"] = "static/music/"
+```
+
+5. Execute the entrypoint.
 ```
 python wsgi.py
 ```
