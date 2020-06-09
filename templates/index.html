@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=0.6" name="viewport">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead">
+            <div class="inner">
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link active" href="/">Home</a>
+                    <a class="nav-link" href="/add">Add Song</a>
+                    <a class="nav-link" href="/manage">Manage Songs</a>
+                </nav>
+            </div>
+        </header>
+        <main role="main" class="inner cover">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Player</h4>
+                </div>
+                <div class="card-body">
+                    {% if songs %}
+                    <p id="player" class="lead">
+                        <audio preload></audio>
+                        <ol>
+                            {% for key, value in songs.items() %}
+                            <ul class="list-group">
+                                <li><a href="#" 
+                                       class="list-group-item list-group-item-action"
+                                       data-src="{{ songs_path }}{{ key }}.mp3">{{ value | truncate(70) }}</a></li>
+                            </ul>
+                            {% endfor %}
+                        </ol>
+                    {% else %}
+                    <div class="alert alert-warning" role="alert">You need to add songs first!</div>
+                    {% endif %}
+                </div>
+            </div>
+
+            </p>
+        </main>
+    </div>
+</body>
+
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/audio.js"></script>
+<script src="static/js/player.js"></script>
+
+</html>

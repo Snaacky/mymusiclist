@@ -1,0 +1,93 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta content="width=device-width, initial-scale=0.6" name="viewport">
+    <link href="static/css/bootstrap.min.css" rel="stylesheet">
+    <link href="static/css/style.css" rel="stylesheet">
+</head>
+
+<body>
+    <div class="cover-container d-flex w-100 h-100 p-3 mx-auto flex-column">
+        <header class="masthead">
+            <div class="inner">
+                <nav class="nav nav-masthead justify-content-center">
+                    <a class="nav-link" href="/">Home</a>
+                    <a class="nav-link" href="/add">Add Song</a>
+                    <a class="nav-link active" href="/manage">Manage Songs</a>
+                </nav>
+            </div>
+        </header>
+        <main role="main" class="inner cover">
+            <div class="card mb-4 shadow-sm">
+                <div class="card-header">
+                    <h4 class="my-0 font-weight-normal">Manage Songs</h4>
+                </div>
+                <div class="card-body">
+                    <div class="list-group">
+                        {% if songs %}
+                        {% for key, value in songs.items() %}
+                        <a href="#" class="list-group-item list-group-item-action">{{ value | truncate(55) }} 
+                        <button type="button" 
+                        onclick='remove("{{ key }}")'
+                        class="btn btn-danger btn-sm float-right">Remove</button>
+
+                        <button type="button" 
+                        onclick='rename("{{ key }}")'
+                        class="btn btn-info btn-sm float-right">Rename</button></a>
+                        {% endfor %}
+                        {% else %}
+                        <div class="alert alert-warning" role="alert">
+                            You need to add songs first!
+                        </div>
+                        {% endif %}
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+</body>
+
+<script>
+    function rename(id) {
+        var name = prompt("Enter a new song name:");
+        if (name == null || name == "") {
+            alert("The name cannot be blank!");
+        } 
+        else {
+            $.ajax({
+                type: "POST",
+                url: "/rename/" + id,
+                data: {name},
+                success: function(response) {
+                    alert(response);
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        };
+    }
+
+    function remove(id) {
+        if (confirm('Are you sure you want to delete this song?')) {
+            $.ajax({
+                type: "GET",
+                url: "/remove/" + id,
+                success: function(response) {
+                    alert(response);
+                },
+                error: function(xhr, status, error) {
+                    alert(xhr.responseText);
+                }
+            });
+        }
+    }
+</script>
+
+<script src="static/js/jquery.min.js"></script>
+<script src="static/js/bootstrap.min.js"></script>
+<script src="static/js/audio.js"></script>
+<script src="static/js/player.js"></script>
+</html>
