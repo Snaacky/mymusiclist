@@ -21,7 +21,12 @@ git clone https://github.com/Snaacky/MyMusicList.git
 pip install -r requirements.txt
 ```
 
-3. Execute the entrypoint.
+3. Update your Flask secret key to something unique in `mymusiclist.py`
+```
+app.config["SECRET_KEY"] = "PUT_YOUR_OWN_SECURE_KEY_HERE"
+```
+
+4. Execute the entrypoint.
 ```
 python wsgi.py
 ```
