@@ -128,7 +128,7 @@ dmypy.json
 # Pyre type checker
 .pyre/
 
-static/music
+*/static/music
 *.db
 *.table
 uwsgi.ini
